@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" value="" id="number">
+    <button id="add">add to cart</button>
+    <button id="calculate">Total price</button>
+    <div class="total" >
+        <h3>total price:</h3>
+    </div>
+</body>
+<script>
+    const input = document.getElementById('number')
+    const btn = document.getElementById('add');
+    const calBtn = document.getElementById('calculate');
+    const showTotal = document.querySelector('.total');
+
+
+    let arr = [];
+    btn.addEventListener('click', function(e){
+        arr.push(parseInt(input.value, 10))
+        console.log(arr)
+        addList(input.value);
+        input.value = ''
+    })
+
+    calBtn.addEventListener('click', function(){
+        let totalPrice = cartCalculation(arr);
+        console.log(totalPrice)
+        const p =  document.createElement('p');
+        showTotal.appendChild(p.appendChild(document.createTextNode(`Total Price is Rs.${totalPrice}/- only`)))
+        showTotal.style.display = 'block';
+    })
+    function cartCalculation(num){
+        let price = num;
+        let total = 0;
+        price.forEach((item) => {
+            total+=item;
+        })
+        return total;
+    }
+    function addList(value){
+        const p =  document.createElement('p');
+        showTotal.appendChild(p.appendChild(document.createTextNode(`${value}/-`)))
+    }
+</script>
+</html>
