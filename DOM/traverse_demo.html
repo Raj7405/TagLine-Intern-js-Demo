@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo of DOM</title>
+</head>
+<body>
+    <section class="mainDiv" id="mainSection">
+        <h1 id="mainHeading">
+            Hello ji! 
+        </h1>
+        <ul class="mainList">
+            <li>one</li>
+            <li>two</li>
+            <li id="thirdListItem">three</li>
+            <li>four</li>
+            <li>five</li>
+            <li>six</li>
+            <li>seven</li>
+            <li>eigth</li>
+        </ul>
+    </section>
+    
+</body>
+<script>
+
+    const mainHeading = document.getElementById('mainHeading')
+    const thirdItem = document.querySelector('#thirdListItem')
+    console.log(mainHeading.parentNode)
+
+
+//next sibling
+    let nextSibling = thirdItem.nextElementSibling
+    console.log(nextSibling)
+
+    let listItemCollection = []
+    while(nextSibling){
+        listItemCollection.push(nextSibling.textContent)
+        nextSibling = nextSibling.nextElementSibling
+    }
+    console.log('next sibling',listItemCollection)
+    
+//previous sibling
+    let previousSibling = thirdItem.previousElementSibling
+
+    let listItemCollection2 = []
+
+    while(previousSibling){
+        listItemCollection2.push(previousSibling.textContent);
+        previousSibling = previousSibling.previousElementSibling
+    }
+
+    console.log('previous Sibling',listItemCollection2)
+
+//children of element
+    let mainList = document.querySelector('.mainList')
+    console.log(mainList.firstChild)  
+     //will return #text because of white space given in html tag e.g Enter. Note that any whitespace such as a single space, multiple spaces, returns, and tabs will create a #text node.
+    console.log(mainList.firstElementChild)  
+     //this can be use to get desier output
+    console.log(mainList.lastChild)  
+    //remove the space to see difference
+    console.log(mainList.lastElementChild)
+
+//to get all child node's live nodeList
+    console.log(mainList.childNodes)
+     //all children including white space etc
+    console.log(mainList.children)  
+     // HTMLcollection of element 
+    console.log(mainList.childElementCount) 
+     //count of children nodes only element
+</script>
+</html>

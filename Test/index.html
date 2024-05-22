@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form</title>
+</head>
+<body>
+    <form action="">
+        <label for="dishName">Name: </label>
+        <input type="text" id="dishName" value="">
+        <br><br>
+
+        <label for="dishPrice">Price: </label>
+        <input type="text" id="dishPrice" value="">
+        <br><br>
+
+        <label for="dishImg">Add Image: </label>
+        <input type="text" id="dishImg" value="">
+        <br><br>
+
+        <button class="addAll" id="addBtn">Add All</button>
+    </form>
+
+    <div class="showDiv"></div>
+
+
+</body>
+<!-- <script>
+    const dishName = document.getElementById('dishName');
+    const dishPrice = document.getElementById('dishPrice');
+    const dishImg = document.getElementById('dishImg');
+    const showDiv = document.getElementById('shoWDiv');
+
+    const addBtn = document.getElementById('addAll')
+
+    function Dish(dishName, dishPrice, dishImg){
+        this.dishName = dishName
+        this.dishPrice = dishPrice
+        this.dishImg = dishImg
+    }
+    let listOfObj = []
+    var id = 0;
+    addBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        console.log("clicked")
+        console.log(dishName.value)
+        listOfObj[id] = new Dish(dishName.value, dishPrice.value, dishImg.value)
+        id++   
+        console.log(id)
+        console.log(listOfObj)
+    })
+
+</script> -->
+<script>
+   const dishName = document.getElementById('dishName');
+const dishPrice = document.getElementById('dishPrice');
+const dishImg = document.getElementById('dishImg');
+const showDiv = document.getElementById('showDiv');
+
+const addBtn = document.getElementById('addBtn'); // Corrected id name
+
+function Dish(dishName, dishPrice, dishImg){
+    this.dishName = dishName;
+    this.dishPrice = dishPrice;
+    this.dishImg = dishImg;
+}
+
+let listOfObj = [];
+let id = 0;
+
+addBtn.addEventListener('click', (e) => {
+    console.log("clicked");
+    e.stopPropagation();
+    console.log(dishName.value);
+    listOfObj[id] = new Dish(dishName.value, dishPrice.value, dishImg.value);
+    id++;
+    console.log("id:", id); // Log the value of id
+    console.log(listOfObj);
+});
+
+
+let flatArray = arr.reduce((acc, curr)=>{
+        if(typeof curr == 'object'){
+            flatArr(curr)
+        }else{
+            acc.push(curr)
+        }
+        newArr = [...acc]
+        return acc
+    }, [])
+
+
+    
+</script>
+</html>

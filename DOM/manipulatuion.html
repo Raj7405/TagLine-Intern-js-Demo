@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #input:valid{
+            background-color: rgba(172, 255, 47, 0.516);
+        }
+        #input:invalid{
+            background-color: rgba(255, 0, 0,  0.516);
+        }
+    </style>
+</head>
+<body>
+    <h1>DOM Manipulation</h1>
+    <div class="inputField">
+        <input type="text" id="input" pattern="\w{3,16}\[ ]" minlength="3"> 
+        <button id="addBtnUnorder">Add to unorder List</button>
+        <button id="addBtnOrder">Add to order List</button> 
+        <button onclick="validateInput()">submit</button>
+    </div>
+
+    <ul id = "list"></ul>
+    <ol id = "list2"></ol>
+
+</body>
+<script>
+    const div = document.createElement('div')
+    div.id = "newDiv";
+    div.className = "dynamicDiv";
+    div.style.backgroundColor = "royalblue";
+    div.style.color = "whitesmoke";
+
+    div.appendChild(document.createTextNode("Hello, dynamic div here!"))
+
+    const h2 = document.createElement('h2');
+    h2.textContent = "i am sub-heading"
+    div.appendChild(h2)
+
+    document.body.appendChild(div)
+
+    function createListItem(content){
+        const li = document.createElement('li');
+        li.textContent = `${content}`;
+        
+        return li;
+    }
+
+    const list = document.querySelector('#list')
+    list.appendChild(createListItem("one piece"))
+    list.appendChild(createListItem("naruto"))
+    list.appendChild(createListItem("bleach"))
+
+    function createListItemTwo(content, listName){
+        const li = document.createElement('li');
+        li.textContent = `${content}`;
+        listName.appendChild(li)
+    }
+
+    const orderList = document.querySelector('#list2')
+    createListItemTwo('Black Clover', orderList)
+    createListItemTwo('My hero Acadmiya', orderList)
+    createListItemTwo('Attack on titan', orderList)
+
+
+    createListItemTwo('blue lock', orderList)
+    createListItemTwo('blue lock', list)
+
+    document.body.appendChild(list) //we rearrange the order of node
+
+    const input = document.getElementById('input')
+    const warning =  document.querySelector('.inputField')
+    warning.style.color = 'red'
+    const p =document.createElement('p')
+    warning.appendChild(p)  
+    function validateInput(){
+        let message;
+        if(input.value.length > 15 || input.value.length < 3){
+            message= 'enter valid content';
+        } else{
+            message = ''
+        }
+        p.innerHTML = message 
+    }
+
+
+    function addItemToList(item, listName){
+        listName.appendChild(createListItem(item))
+    }
+    document.querySelector('#addBtnUnorder').addEventListener('click', function(){
+        addItemToList(input.value,list )
+    })
+    document.querySelector('#addBtnOrder').addEventListener('click', function(){
+        addItemToList(input.value,orderList )
+    })
+
+
+    document.body.appendChild(div)
+</script>
+</html>

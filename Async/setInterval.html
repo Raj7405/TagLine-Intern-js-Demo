@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body >
+    <h1>
+        click on start to on color switcher
+    </h1>
+    <button id="start">Start</button>
+    <button id = "stop">Stop</button>
+</body>
+<script>
+    let randomColor = function(){
+        const hex = "0123456789ABCDEF"
+        let color = '#'
+        for(let i = 0; i < 6; i++){
+        color +=hex[Math.floor(Math.random()*16)]
+      }
+      return color
+    }
+
+    const startbtn = document.getElementById('start')
+    const stopbtn = document.getElementById('stop')
+
+    let changer
+    const colorEvent =  startbtn.addEventListener('click', function(){
+        const changeColor = function(){
+            document.body.style.backgroundColor = randomColor()
+        }
+        if(!changer){
+            changer = setInterval(changeColor, 500)
+        }
+    })
+  
+    stopbtn.addEventListener('click', function(){
+        clearInterval(changer)
+        changer = null
+        console.log('STOPP  ED')
+    })
+    
+
+   
+</script>
+</html>
