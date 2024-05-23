@@ -6,20 +6,28 @@
     <title>Promise Demo</title>
     <style>
         .card{
+            /* display: inline; */
             max-width: 400px;
             height: 600px;
-            border: 3px solid whitesmoke;
+            color: whitesmoke;
         }
         .cardImg{
             width: 100%;
             /* height: 200px;*/
+        }
+        .cardHeading{
+            text-align: center;
+            font-weight: 700;
+        }
+        .cardInfo{
+            text-align: justify;
+            margin: 10px;
         }
     </style>
 </head>
 <body>
     <h1 id="heading">Promise Demo</h1>
     <div class="card">
-
     </div>
 </body>
 <script>
@@ -33,9 +41,11 @@
             document.body.appendChild(script)
         })
     }
-    let promise = loadScript('./externalSrc.js')    
+    // let promise = loadScript('./externalSrc.js')             
     promise.then(resolve =>{
-        loadScript('./fetch.js')
+        // loadScript('./fetch.js')
+        // loadScript('./promiseAll.js')
+        loadScript('./await.js')
     })
     .then(resolve =>alert(`Source is loaded`) )
     .catch(reject =>{
