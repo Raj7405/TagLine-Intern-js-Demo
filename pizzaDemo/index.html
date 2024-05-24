@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Ordering system</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="orderSection">
+        <form action="#" id="pizzaOrder" autocomplete="on" >
+            <label for="pizzaName"> 
+                Enter Pizza Name:
+            </label>
+            <input 
+                type="text" 
+                id="pizzaName"
+            />  
+            <br><br>
+            <label for="size">size Of Pizza:</label>
+            <br>
+            <input 
+                type="radio" 
+                id="small" 
+                name="size"
+            />
+            <label for="small" >Small</label>
+            <input  
+                type="radio" 
+                id="medium" 
+                name="size"
+            />
+            <label for="medium" >Medium</label>
+            <input 
+                type="radio" 
+                id="large"
+                name="size"
+            />
+            <label for="large" >Large</label>
+            <br><br>
+            <label for="quntity">Quntuty:</label>
+            <input 
+                type="number" 
+                id="quntity"
+                minlength="0"
+            />
+            <br><br>
+            <input 
+                type="submit" 
+                value="place Order" 
+                class="btn" 
+                id="placeOrder"
+            />
+
+        </form>
+    </section>
+
+    
+    <section class="statuSection" id="statuSection">
+        <h2>Order Details</h2>
+        <div class="order">
+            <div class="orderDetail"></div>
+            <div class="orderStatus"></div>
+        </div>
+    </section>
+</body>
+<script src="script.js"></script>
+</html>
+
+<!-- https://media.tenor.com/I7GuZXfrYmkAAAAj/peach-goma.gif -->
+<!-- https://cdn.dribbble.com/users/1519660/screenshots/3768738/media/3b79ae2d6fc96ae83921a27bf2c12e4d.gif -->

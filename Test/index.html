@@ -90,7 +90,35 @@ let flatArray = arr.reduce((acc, curr)=>{
         return acc
     }, [])
 
+;    document.addEventListener("DOMContentLoaded", function() {
+    const pizzaForm = document.getElementById('pizzaOrder');
+    const statusSection = document.querySelector('.statu.section');
 
-    
+    pizzaForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        
+        // Get values from the form
+        const pizzaName = document.getElementById('pizzaName').value;
+        const size = document.querySelector('input[name="size"]:checked').id;
+        const quantity = parseInt(document.getElementById('quntity').value);
+
+        // Create an object from the form data
+        const order = {
+            pizzaName: pizzaName,
+            size: size,
+            quantity: quantity
+        };
+
+        // Display the object on the webpage
+        statusSection.innerHTML = `
+            <p>Order Details:</p>
+            <p>Pizza Name: ${order.pizzaName}</p>
+            <p>Size: ${order.size}</p>
+            <p>Quantity: ${order.quantity}</p>
+        `;
+    });
+})
+
+  
 </script>
 </html>
