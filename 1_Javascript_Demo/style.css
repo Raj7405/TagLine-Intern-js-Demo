@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.table-content{
+    width: 100%;
+}
+.table{
+    width: 100%;
+    max-width: 1200px;  
+    margin: auto;
+}
+
+.formSection{
+    margin: 30px auto;
+    padding: 10PX;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+.formSection input{
+    background-color: rgb(241, 243, 245);
+}
+.formSection .textInput input{
+    background-color: rgb(241, 243, 245);
+    width: 100%;
+    height: 30px;
+    padding: 5px 10px;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+.form-row{
+    display: flex;
+    justify-content: space-evenly;
+}
+.inputGroup{
+    width: 250px;
+}
+.inputGroup .multiChoice{
+    margin: 10px;
+}
+.multiChoice{
+    width: 50%;
+}
+.selctionGroup{
+    margin: auto;
+    width: 500px;
+}
+
+
