@@ -9,7 +9,7 @@
 </head>
 <body>
     <section class="formSection">
-        <form action="#" id="userForm">
+        <form action="#" id="userForm" autocomplete="on">
             <div class="form-row textInput">
                 <div class="inputGroup">
                     <label for="fullName">Full Name:</label>
@@ -27,7 +27,6 @@
                     <input 
                         type="email"
                         id="email"
-                        pattern=""
                         required
                     />
                 </div>
@@ -36,25 +35,25 @@
             <div class="form-row">
                 <div class="inputGroup">
                     <label for="gender" class="multiChoice">Gender:<br>
-                        <input type="radio" id="male" name="gender" value="male">
+                        <input type="radio" id="male" name="gender" value="Male">
                         <label for="male">Male</label> <br>
-                        <input type="radio" id="female" name="gender" value="female"> 
+                        <input type="radio" id="female" name="gender" value="Female"> 
                         <label for="female">Female</label> <br>
-                        <input type="radio" id="other" name="gender" value="other">
+                        <input type="radio" id="other" name="gender" value="Other">
                         <label for="other">Other</label> <br>
                     </label>
                 </div>
                 
                 <div class="inputGroup">
                     <label for="Hobby" class="multiChoice">Hobby:<br>
-                        <input type="checkbox" id="sport">
+                        <input type="checkbox" id="sport" value="Sport">
                         <label for="sport">Sport</label><br>
-                        <input type="checkbox" id="reading">
+                        <input type="checkbox" id="reading" value="Reading">
                         <label for="reading">Reading</label><br>
-                        <input type="checkbox" id="hiking">
+                        <input type="checkbox" id="hiking" value="Hiking">
                         <label for="hiking">Hiking</label><br>
-                        <input type="checkbox" id="travling">
-                        <label for="travling">Travling</label> <br>
+                        <input type="checkbox" id="traveling" value="Traveling">
+                        <label for="travling">Traveling</label> <br>
                     </label>
                 </div>
             </div>
@@ -114,8 +113,8 @@
                     <th>Delete</th>
                 </tr>
             </thead>
-            <tbody class="text-center"id="tabeleBody">
-                <tr>
+            <tbody class="text-center" id="tableBody">
+                <!-- <tr>
                     <td>Rajendra Mohan Chaudhari</td>
                     <td>rajendra@gmail.com</td>
                     <td>Male</td>
@@ -145,7 +144,7 @@
                     <td>Ankleshwar</td>
                     <td></td>
                     <td></td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </section>
