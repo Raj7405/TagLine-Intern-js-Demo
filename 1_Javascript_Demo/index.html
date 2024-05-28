@@ -62,38 +62,46 @@
             <div class="form-row selctionGroup">
                 <div class="inputGroup">
                     <label for="country">Country:</label>
-                    <select name="country" id="country">
+                    <select name="countrys" id="country">
                         <option value="Select">Select</option>
                     </select>
                 </div>
 
                 <div class="inputGroup">                    
                     <label for="state">State:</label>
-                    <select name="state" id="state">
+                    <select name="states" id="state">
                         <option value="Select">Select</option>
                     </select>
                 </div>
                 
                 <div class="inputGroup">
                      <label for="city">City:</label>
-                     <select name="city" id="city">
+                     <select name="citys" id="city">
                         <option value="Select">Select</option>
                      </select>
                 </div>
             </div>
             <br>
-            <div class="form-row">
+            <div class="form-row btnSection">
                 <input 
-                type="submit"
-                id="subimiBtn"
-                class="btn"
-                 />
+                    type="submit"
+                    id="subimiBtn"
+                    class="btn"
+                />
                 
-                 <input 
-                type="reset"
-                id="resetBtn"
-                class="btn"
-                  />
+                <input 
+                    type="reset"
+                    id="resetBtn"
+                    class="btn"
+                />
+
+                <input 
+                    type="button"
+                    id="updateBtn"
+                    class="btn"
+                    value="Update"
+                    style="display: none;"
+                />
             </div>
         </form>
     </section>
@@ -149,25 +157,7 @@
         </table>
     </section>
 </body>
-<script src="selctionList.js">
-
-
-// function populateCities(selectedState) {
-//     const cityDropdown = document.getElementById('city');
-//     cityDropdown.innerHTML = '<option value="">Select City</option>';
-//     const selectedCountryData = countriesData.find(country => country.name === document.getElementById('country').value);
-//     if (selectedCountryData) {
-//         const selectedStateData = selectedCountryData.states.find(state => state.name === selectedState);
-//         if (selectedStateData) {
-//             selectedStateData.cities.forEach(city => {
-//                 const option = document.createElement('option');
-//                 option.value = city;
-//                 option.text = city;
-//                 cityDropdown.appendChild(option);
-//             });
-//         }
-//     }
-// }
-</script>
-<script src="main.js"></script>
+<!-- <script src="selctionList.js">
+</script> -->
+<script src="main.js" ></script>
 </html>

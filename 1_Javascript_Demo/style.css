@@ -52,5 +52,21 @@
     margin: auto;
     width: 500px;
 }
-
+.btn{
+    width: fit-content;
+    padding: 10px;
+    border: 1px solid black;
+}
+#editBtn, #updateBtn{
+    background-color:rgb(42, 187, 42);
+    color: #fff;
+}
+#deleteBtn{
+    background-color: crimson;
+    color: #fff;
+}
+#subimiBtn{
+    background-color: coral;
+    color: #fff;
+}
 

@@ -53,24 +53,24 @@ document.querySelector('#state').addEventListener('change', function(event){
 
 
 const userDataBase = [
-    {
-        name: 'Rajendra Chaudhari',
-        email : 'rajendra@gmail.com',
-        gender : 'Male',
-        hobby : ['Sport', 'Reading'],
-        country: 'India',
-        state : 'Gujarat',
-        city : 'Ankleshwar',
-    },
-    {
-        name: 'Sammed Patil',
-        email : 'patil@gmail.com',
-        gender : 'Male',
-        hobby: ['Sport', 'Traveling'],
-        country: 'India',
-        state : 'Gujarat',
-        city : 'Ankleshwar',
-    },
+    // {
+    //     name: 'Rajendra Chaudhari',
+    //     email : 'rajendra@gmail.com',
+    //     gender : 'Male',
+    //     hobby : ['Sport', 'Reading'],
+    //     country: 'India',
+    //     state : 'Gujarat',
+    //     city : 'Ankleshwar',
+    // },
+    // {
+    //     name: 'Sammed Patil',
+    //     email : 'patil@gmail.com',
+    //     gender : 'Male',
+    //     hobby: ['Sport', 'Traveling'],
+    //     country: 'India',
+    //     state : 'Gujarat',
+    //     city : 'Ankleshwar',
+    // },
 ]
 function CreateUserDataObj(name, email, gender, hobby, country, state, city){
     this.name = name;
@@ -98,11 +98,11 @@ function createElementToDisplay(userDataObj){
         row.appendChild(temp)
     }
     const editBtn = document.createElement('td')
-    editBtn.innerHTML = `<button id='editBtn' onclick="editRow(this)">Edit</button>`
+    editBtn.innerHTML = `<button id='editBtn' class="btn" onclick="editRow(this)">Edit</button>` 
     row.appendChild(editBtn)
 
     const deletBtn = document.createElement('td')
-    deletBtn.innerHTML = `<button id='deletBtn' onclick="deleteRow(this)">Delete</button>`
+    deletBtn.innerHTML = `<button id='deleteBtn' class="btn" onclick="deleteRow(this)">Delete</button>`
     row.appendChild(deletBtn)
     
     document.querySelector('#tableBody').appendChild(row)
@@ -131,10 +131,39 @@ function showDataBackToForm(currRow){
     creatSelctionList(city, currRow.cells[5].textContent, 'city');
     document.querySelector('#city').value = currRow.cells[6].textContent;
 }
+
 function editRow(element){
     let currRow = element.parentNode.parentNode
+
     showDataBackToForm(currRow)
+    
+    document.querySelector('input[type="submit"]').setAttribute('disabled','true');
+    document.querySelectorAll('#deleteBtn').forEach(item => item.setAttribute('disabled','true'));
+    const updateBtn = document.querySelector('#updateBtn');
+    updateBtn.style.display = "block"
+    document.querySelector('.btnSection').appendChild(updateBtn)
+    
+    let indexOfCurrObj = userDataBase.findIndex( item => item.email == currRow.cells[1].textContent) 
+    console.log(userDataBase[indexOfCurrObj])
+    
+    updateBtn.addEventListener('click',function(){
+        pushDataToObj(userDataBase[indexOfCurrObj])
+        this.style.display = 'none'
+        document.querySelectorAll('#deleteBtn').forEach(item => item.setAttribute('enable','false'));
+
+    });
     console.log("edit intiate", element.parentNode.parentNode)
+}
+function pushDataToObj(obj){
+    obj.name = document.querySelector('#fullName').value;
+    obj.email = document.querySelector('#email').value;
+    obj.gender = document.querySelector('input[name="gender"]:checked').value;
+    obj.hobby =  collectHobbies();
+    obj.country = document.querySelector('#country').value;
+    obj.state = document.querySelector('#state').value;
+    obj.city = document.querySelector('#city').value;
+    diplayAllData(userDataBase)
+    console.log(obj)
 }
 function deleteRow(element){
     let currRow = element.parentNode.parentNode;
@@ -147,17 +176,23 @@ document.addEventListener('DOMContentLoaded', function(){
     diplayAllData(userDataBase)
     document.querySelector('#userForm').addEventListener('submit', function(event){
         event.preventDefault();
-        const name = document.querySelector('#fullName').value;
-        const email = document.querySelector('#email').value;
-        const gender = document.querySelector('input[name="gender"]:checked').value;
-        const hobby =  collectHobbies();
-        const country = document.querySelector('#country').value;
-        const state = document.querySelector('#state').value;
-        const city = document.querySelector('#city').value;
-        
-        let userData = new CreateUserDataObj(name, email, gender, hobby, country, state, city);
+        console.log(collectDataOfForm())
+        let userData = new CreateUserDataObj(...collectDataOfForm());
         userDataBase.push(userData);
         createElementToDisplay(userData);
+        document.querySelectorAll('input').value = ''
+        this.reset();
     })
 } )
 
+function collectDataOfForm(){
+    const name = document.querySelector('#fullName').value;
+    const email = document.querySelector('#email').value;
+    const gender = document.querySelector('input[name="gender"]:checked').value;
+    const hobby =  collectHobbies();
+    const country = document.querySelector('#country').value;
+    const state = document.querySelector('#state').value;
+    const city = document.querySelector('#city').value;
+
+    return [name,email,gender,hobby,country,state,city]
+}
