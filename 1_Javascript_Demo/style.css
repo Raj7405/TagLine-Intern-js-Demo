@@ -70,3 +70,68 @@
     color: #fff;
 }
 
+.sortBtn{
+    display: flex;
+    justify-content: center;
+}
+.sortBtn span{
+    position: relative;
+    padding-left: 5px;
+    display: flex;
+    /* background-color: aqua; */
+    flex-direction: column;
+    width: fit-content;
+}
+.iconSort i {
+    position: absolute;
+    top: 5px;
+    left: 9px;
+    /* background-color: aqua; */
+
+}
+/* .show{
+    visibility: visible;
+}
+.noShow{
+    visibility: hidden;
+} */
+
+.searchField{
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    align-items: center;
+    /* gap: 20px; */
+}
+.searchField input{
+    width: 90%;
+    padding: 5px 15px;
+    border: 3px solid #cbcbcb;
+    border-right: 0;
+    border-radius: 7px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.searchIcon i{
+    width: fit-content;
+    padding: 9px;
+    color: #858585;
+    border: 3px solid #cbcbcb;
+    border-left: 0;
+    border-radius: 7px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    cursor: pointer;
+}
+.cancelIcon i{
+    width: fit-content;
+    padding: 9px;
+    color: #858585;
+    border: 3px solid #cbcbcb;
+    border-left: 0;
+    border-radius: 7px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    cursor: pointer;
+}
