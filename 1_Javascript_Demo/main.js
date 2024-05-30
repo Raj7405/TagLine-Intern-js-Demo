@@ -500,7 +500,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(keyPressed)
             if(keyPressed === 13){
                 return
-            }if(event.key === "Backspace"){
+            }if(event.key == "Backspace"){
                 clearErrors()
             }else{
                 clearErrors()
