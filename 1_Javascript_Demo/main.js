@@ -495,10 +495,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     document
         .querySelector("#email")
-        .addEventListener("keypress", function (event){
+        .addEventListener("keydown", function (event){
             let keyPressed = event.keyCode || event.which
+            console.log(keyPressed)
             if(keyPressed === 13){
                 return
+            }if(event.key === "Backspace"){
+                clearErrors()
             }else{
                 clearErrors()
             }
