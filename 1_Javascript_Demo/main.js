@@ -321,9 +321,10 @@ function validateForm() {
                 } else if (!validateEmailFormat(emailInput.value.trim())) {
                     showError(document.querySelector("#emailError"), "Invalid email format");
                     isValid = false;
-                }
+                } 
             }
         });
+    
 
         if (fullNameInput.value.trim() === "") {
             showError(document.querySelector("#nameError"), "Full name is required");
@@ -492,6 +493,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 validSelection()
             }
         });
+    document
+        .querySelector("#email")
+        .addEventListener("keypress", function (event){
+            let keyPressed = event.keyCode || event.which
+            if(keyPressed === 13){
+                return
+            }else{
+                clearErrors()
+            }
+
+        })
     document
         .querySelector("#country")
         .addEventListener("click", function (event) {
