@@ -3,8 +3,14 @@
     padding: 0;
     box-sizing: border-box;
 }
-
-
+.noDisplay{
+    display: none;
+}
+.display{
+    display: block;
+    color: red;
+    font-size: small;
+}
 .table-content{
     width: 100%;
 }
@@ -26,12 +32,23 @@
 .formSection input{
     background-color: rgb(241, 243, 245);
 }
+.formSection input:focus{
+    outline: 0 !important;
+}
+.valid {
+    border: 1px solid green !important;
+    box-shadow: rgba(255, 17, 17, 0.444) 0px 3px 8px;
+  }
+.invalid {
+    border: 1px solid red !important;
+    box-shadow: rgba(0, 250, 62, 0.472) 0px 3px 8px;
+}
 .formSection .textInput input{
     background-color: rgb(241, 243, 245);
     width: 100%;
     height: 30px;
     padding: 5px 10px;
-    border: 0;
+    border: 1px solid black;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }

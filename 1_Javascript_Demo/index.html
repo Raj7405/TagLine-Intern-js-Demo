@@ -13,15 +13,17 @@
         <form action="#" id="userForm" autocomplete="on">
             <div class="form-row textInput">
                 <div class="inputGroup">
-                    <label for="fullName">Full Name:</label>
+                    <label for="fullName">Full Name:
+                    </label>
+
                     <input 
                         type="text"  
                         id="fullName"
                         minlength="4" 
                         maxlength="25" 
-                        pattern="\[a-zA-Z]\"
                         required
                     />
+                    <div class="errorDiv" id="nameError"></div>
                 </div>
                 <div class="inputGroup">
                     <label for="email">Email:</label>
@@ -30,57 +32,66 @@
                         id="email"
                         required
                     />
+                    <div class="errorDiv" id="emailError"></div>
                 </div>
             </div>
             <br>
-            <div class="form-row">
-                <div class="inputGroup">
-                    <label for="gender" class="multiChoice">Gender:<br>
-                        <input type="radio" id="male" name="gender" value="Male">
-                        <label for="male">Male</label> <br>
-                        <input type="radio" id="female" name="gender" value="Female"> 
-                        <label for="female">Female</label> <br>
-                        <input type="radio" id="other" name="gender" value="Other">
-                        <label for="other">Other</label> <br>
-                    </label>
+            <div class="noneTextDiv">
+                <div class="form-row radioDiv">
+                    <div class="inputGroup ">
+                        <label for="gender" class="multiChoice">Gender:<br>
+                            <input type="radio" id="male" name="gender" value="Male">
+                            <label for="male">Male</label> <br>
+                            <input type="radio" id="female" name="gender" value="Female"> 
+                            <label for="female">Female</label> <br>
+                            <input type="radio" id="other" name="gender" value="Other">
+                            <label for="other">Other</label> <br>
+                        </label>
+                        <div class="errorDiv" id="genderError"></div>
+                    </div>
+                    
+                    <div class="inputGroup checkboxDiv">
+                        <label for="Hobby" class="multiChoice">Hobby:<br>
+                            <input type="checkbox" id="sport" value="Sport">
+                            <label for="sport">Sport</label><br>
+                            <input type="checkbox" id="reading" value="Reading">
+                            <label for="reading">Reading</label><br>
+                            <input type="checkbox" id="hiking" value="Hiking">
+                            <label for="hiking">Hiking</label><br>
+                            <input type="checkbox" id="traveling" value="Traveling">
+                            <label for="travling">Traveling</label> <br>
+                        </label>
+                        <div class="errorDiv" id="hobbyError"></div>
+                    </div>
                 </div>
                 
-                <div class="inputGroup">
-                    <label for="Hobby" class="multiChoice">Hobby:<br>
-                        <input type="checkbox" id="sport" value="Sport">
-                        <label for="sport">Sport</label><br>
-                        <input type="checkbox" id="reading" value="Reading">
-                        <label for="reading">Reading</label><br>
-                        <input type="checkbox" id="hiking" value="Hiking">
-                        <label for="hiking">Hiking</label><br>
-                        <input type="checkbox" id="traveling" value="Traveling">
-                        <label for="travling">Traveling</label> <br>
-                    </label>
-                </div>
-            </div>
-            
-            <br>
-            <div class="form-row selctionGroup">
-                <div class="inputGroup">
-                    <label for="country">Country:</label>
-                    <select name="countrys" id="country" required>
-                        <option value="Select">Select</option>
-                    </select>
+                <br>
+                <div class="form-row selctionGroup">
+                    <div class="inputGroup">
+                        <label for="country">Country:</label>
+                        <select name="countrys" id="country" required>
+                            <option value="Select">Select</option>
+                        </select>
+                        <div class="errorDiv" id="countryError"></div>
+                    </div>
+    
+                    <div class="inputGroup">                    
+                        <label for="state">State:</label>
+                        <select name="states" id="state" required>
+                            <option value="Select">Select</option>
+                        </select>
+                        <div class="errorDiv" id="stateError"></div>
+                    </div>
+                    
+                    <div class="inputGroup">
+                         <label for="city">City:</label>
+                         <select name="citys" id="city" required>
+                            <option value="Select">Select</option>
+                         </select>
+                         <div class="errorDiv" id="cityError"></div>
+                    </div>
                 </div>
 
-                <div class="inputGroup">                    
-                    <label for="state">State:</label>
-                    <select name="states" id="state" required>
-                        <option value="Select">Select</option>
-                    </select>
-                </div>
-                
-                <div class="inputGroup">
-                     <label for="city">City:</label>
-                     <select name="citys" id="city" required>
-                        <option value="Select">Select</option>
-                     </select>
-                </div>
             </div>
             <br>
             <div class="form-row btnSection">
@@ -145,41 +156,11 @@
                 </tr>
             </thead>
             <tbody class="text-center" id="tableBody">
-                <!-- <tr>
-                    <td>Rajendra Mohan Chaudhari</td>
-                    <td>rajendra@gmail.com</td>
-                    <td>Male</td>
-                    <td>
-                        <ul>
-                            <li>Sport</li>
-                            <li>Gym</li>
-                        </ul>
-                    </td>
-                    <td>India</td>
-                    <td>Gujarat</td>
-                    <td>Ankleshwar</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Sammed Patil</td>
-                    <td>sam@gmail.com</td>
-                    <td>Male</td>
-                    <td>
-                        <ul>
-                            <li>Sport</li>
-                        </ul>
-                    </td>
-                    <td>India</td>
-                    <td>Gujarat</td>
-                    <td>Ankleshwar</td>
-                    <td></td>
-                    <td></td>
-                </tr> -->
             </tbody>
         </table>
     </section>
 </body>
 
 <script src="main.js" ></script>
+
 </html>
