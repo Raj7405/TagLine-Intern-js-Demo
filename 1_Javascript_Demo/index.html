@@ -19,6 +19,7 @@
                     <input 
                         type="text"  
                         id="fullName"
+                        placeholder="Full Name"
                         
                     />
                     <div class="errorDiv" id="nameError"></div>
@@ -28,6 +29,7 @@
                     <input 
                         type="text"
                         id="email"
+                        placeholder="xyz@gmail.com"
                     />
                     <div class="errorDiv" id="emailError"></div>
                 </div>
@@ -103,7 +105,11 @@
                     id="resetBtn"
                     class="btn"
                 />
-
+                <input 
+                    type="button"
+                    id="cancelBtn"
+                    value="reset"
+                    style="display: none;">
                 <input 
                     type="button"
                     id="updateBtn"
@@ -115,18 +121,18 @@
         </form>
     </section>
    
-    <section class="searchField" id="searchField">
+    <section class="searchField" id="searchField" autocomplete="off">
         <input 
             type="text" 
             id="searchInputField" 
             placeholder="Search...."
         />
-        <div class="searchIcon">
+        <!-- <div class="searchIcon">
             <i class="fa-solid fa-magnifying-glass" id="search"></i>
         </div>
         <div class="cancelIcon" style="display: none;">
             <i class="fa-solid fa-xmark" id="cancel"></i>
-        </div>
+        </div> -->
     </section>
 
     <section class="table-content">

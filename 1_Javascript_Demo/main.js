@@ -183,7 +183,7 @@ function editRow(element) {
     document
         .querySelector("#resetBtn")
         .addEventListener("click", function (event) {
-            
+
             document
                 .querySelector(`input[value="${currRow.cells[2].textContent}"]`)
                 .removeAttribute("checked", "checked");
@@ -194,8 +194,14 @@ function editRow(element) {
             });
             document.querySelector('#email').value = currRow.cells[1].textContent
             document.querySelector('#fullName').value = ''
-            document.querySelectorAll('select').forEach(item => item.innerHTML = '<option>Select</option>')    
-
+            document.querySelectorAll('select').forEach(item => item.innerHTML = '<option>Select</option>')
+            document
+            .querySelectorAll('input[type="checkbox"]')    
+            .forEach((item) => {
+                if(item.checked){
+                    item.checked = false;
+                }
+        });
             event.preventDefault()
         });
 
@@ -203,7 +209,7 @@ function editRow(element) {
         .querySelector("#updateBtn")
         .addEventListener("click", function (event) {
             console.log(validateForm())
-            if(validateForm()){
+            if (validateForm()) {
                 pushDataToObj(userDataBase[indexOfCurrObj]);
                 document
                     .querySelector('#email')
@@ -214,14 +220,16 @@ function editRow(element) {
                 document
                     .querySelector('input[type="submit"]')
                     .removeAttribute("disabled", "true");
-    
+
                 document
-                    .querySelector(`input[value="${currRow.cells[2].textContent}"]`)
+                    .querySelector(`input[type="radio"]:checked`)
                     .removeAttribute("checked", "checked");
-                currRow.cells[3].textContent.split(",").forEach((item) => {
-                    document
-                        .querySelector(`input[value="${item}"]`)
-                        .removeAttribute("checked", "checked");
+                document
+                    .querySelectorAll('input[type="checkbox"]')    
+                    .forEach((item) => {
+                        if(item.checked){
+                            item.checked = false;
+                        }
                 });
                 document.querySelector("#userForm").reset();
                 this.style.display = "none";
@@ -290,15 +298,25 @@ function toggleAscendDecend() {
 }
 
 //search field : filter function
-document
-    .querySelector("#searchInputField")
-    .addEventListener('keyup', function(event){
-        console.log(this.value)
-        let searchValue = this.value.trim();
-        filterData(searchValue)
-    })
+// document
+//     .querySelector("#searchInputField")
+//     .addEventListener('keyup', function (event) {
+//         console.log(this.value)
+//         let searchValue = this.value.trim();
+//         filterData(searchValue)
+//     })
 
-function filterData(value){
+['keyup', 'paste', 'copy'].forEach(item => {
+    document
+        .querySelector("#searchInputField")
+        .addEventListener(item, function (event) {
+            console.log(this.value)
+            let searchValue = this.value.trim();
+            filterData(searchValue)
+        })
+})
+
+function filterData(value) {
     let searchData = userDataBase.filter(item => item.name.toLowerCase().includes(value))
     diplayAllData(searchData)
 }
@@ -306,22 +324,22 @@ function filterData(value){
 
 //Main function Of page
 document.addEventListener("DOMContentLoaded", function () {
-    
+
     //selection list are populating here
 
     document
         .querySelector("#email")
-        .addEventListener("keydown", function (event){
+        .addEventListener("keydown", function (event) {
             let keyPressed = event.keyCode || event.which
             console.log(keyPressed)
-            console.log(this.value)         
-            if(keyPressed === 13){
+            console.log(this.value)
+            if (keyPressed === 13) {
                 return
             }
-            if(event.key == "Backspace"){
+            if (event.key == "Backspace") {
                 dynamicClearError('#emailError')
                 // clearErrors()
-            }else{
+            } else {
                 dynamicClearError('#emailError')
                 // clearErrors()
             }
@@ -329,18 +347,34 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     document
         .querySelector("#email")
-        .addEventListener("keyup", function (event){
-            console.log(this.value)   
+        .addEventListener("keyup", function (event) {
+            console.log(this.value)
             console.log(emailDataBase.includes(this.value))
-            if(emailDataBase.includes(this.value)){
+            if (emailDataBase.includes(this.value)) {
                 showError(document.querySelector("#emailError"), "email already exist");
             }
+            //not nessacary
+            if (!validateEmailFormat(this.value)) {
+                document.querySelector("#email").classList.remove('redBorder')
+            } if (validateEmailFormat) {
+                document.querySelector("#email").classList.add('redBorder')
+            }
         })
+    // document
+    //     .querySelector("#email")
+    //     .addEventListener("keyup", function (event) {
+    //         let node = document.querySelector("#emailError")
+    //         node.textContent = "Invalid email format";
+    //         node.classList.add("display");
+    //         if(validateEmailFormat(this.value)){
+    //             dynamicClearError('#emailError')
+    //         }
+    //     })
     document
         .querySelector("#country")
         .addEventListener("click", function (event) {
             creatSelctionList(country, null, "country");
-            if(this.value == 'Select'){
+            if (this.value == 'Select') {
                 creatSelctionList("", "", "state");
                 creatSelctionList("", "", "city");
             }
@@ -361,21 +395,21 @@ document.addEventListener("DOMContentLoaded", function () {
     //predeined data to show
     diplayAllData(userDataBase);
 
-    
+
     //Event delegation
     document
-    .querySelector("#tabeleHead")
-    .addEventListener("click", function (event) {
-        if (event.target.classList.contains("icon")) {
-            toggleAscendDecend();
-        }
-        if (event.target.id == document.querySelector("#thfullName").id) {
-            console.log('click')
-            document.querySelector("#ascend").style.visibility = "visible";
-            document.querySelector("#decend").style.visibility = "visible";
-            diplayAllData(userDataBase);
-        }
-    });
+        .querySelector("#tabeleHead")
+        .addEventListener("click", function (event) {
+            if (event.target.classList.contains("icon")) {
+                toggleAscendDecend();
+            }
+            if (event.target.id == document.querySelector("#thfullName").id) {
+                console.log('click')
+                document.querySelector("#ascend").style.visibility = "visible";
+                document.querySelector("#decend").style.visibility = "visible";
+                diplayAllData(userDataBase);
+            }
+        });
 
 
     //data are gettin showed here
@@ -385,7 +419,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             console.log(collectDataOfForm());
             // if (validateFormOnSubmit() && emailExist(document.querySelector("#email").value)) {
-            if (validateForm() && emailExist(document.querySelector("#email").value)) {    
+            if (validateForm() && emailExist(document.querySelector("#email").value)) {
                 let userData = new CreateUserDataObj(...collectDataOfForm());
                 emailDataBase.push(userData.email)
                 userDataBase.push(userData);
@@ -402,6 +436,19 @@ document.addEventListener("DOMContentLoaded", function () {
     document
         .querySelector("#userForm")
         .addEventListener("reset", function (event) {
+            document
+                .querySelector(`input[type=radio"]`)
+                .removeAttribute("checked", "checked");
+            // currRow.cells[3].textContent.split(",").forEach((item) => {
+            //     document
+            //         .querySelector(`input[value="${item}"]`)
+            //         .removeAttribute("checked", "checked");
+            // });
+            document.querySelector('#email').value = ''
+            document.querySelector('#fullName').value = ''
+            document.querySelectorAll('select').forEach(item => item.innerHTML = '<option>Select</option>')
+
+            event.preventDefault()
             clearErrors();
         });
 
@@ -409,47 +456,47 @@ document.addEventListener("DOMContentLoaded", function () {
         .querySelector("#userForm")
         .addEventListener("keypress", function (event) {
             let keyPressed = event.keyCode || event.which
-            if(keyPressed == 13){
-                event.preventDefault(); 
+            if (keyPressed == 13) {
+                event.preventDefault();
             }
-            
+
         });
     document
-        .addEventListener('input', function(event){
+        .addEventListener('input', function (event) {
             let target = event.target
-            if(target.id == document.querySelector('#fullName').id){
-                if(target.value.length >= 3){
+            if (target.id == document.querySelector('#fullName').id) {
+                if (target.value.length >= 3) {
                     dynamicClearError('#nameError')
                 }
                 // else{
                 //     showError(document.querySelector("#nameError"), "Full name is required")
                 // }
             }
-            if(target.id == document.querySelector('#email').id){
-                if(!emailExist(target.value)){
+            if (target.id == document.querySelector('#email').id) {
+                if (!emailExist(target.value)) {
                     dynamicClearError('#emailError')
-                }if (target.value.trim() === '') {
+                } if (target.value.trim() === '') {
                     showError(document.querySelector("#emailError"), "Email is required");
                 }
             }
 
-            if(target.type == document.querySelector('input[type="radio"]').type){
-                    dynamicClearError('#genderError')
+            if (target.type == document.querySelector('input[type="radio"]').type) {
+                dynamicClearError('#genderError')
             }
-            
-            if(target.type == document.querySelector('input[type="checkbox"]').type){
+
+            if (target.type == document.querySelector('input[type="checkbox"]').type) {
                 console.log('hobby')
                 dynamicClearError('#hobbyError')
             }
 
-            console.log(target.value ==  document.querySelector('#country').value)
-            if(target.value ==  document.querySelector('#country').value){
+            console.log(target.value == document.querySelector('#country').value)
+            if (target.value == document.querySelector('#country').value) {
                 dynamicClearError('#countryError')
             }
-            if(target.value ==  document.querySelector('#state').value){
+            if (target.value == document.querySelector('#state').value) {
                 dynamicClearError('#stateError')
             }
-            if(target.value ==  document.querySelector('#city').value){
+            if (target.value == document.querySelector('#city').value) {
                 dynamicClearError('#cityError')
             }
         })
@@ -467,63 +514,63 @@ function validateForm() {
     const fullNameInput = document.querySelector("#fullName");
     const emailInput = document.querySelector("#email");
 
-        if (fullNameInput.value.trim() === "") {
-            showError(document.querySelector("#nameError"), "Full name is required");
-            isValid = false;
-        }    
-        if (emailInput.value === "") {
-            console.log('i am true')
-            showError(document.querySelector("#emailError"), "Email is required");
-            isValid = false;
-        } else if (!validateEmailFormat(emailInput.value.trim())) {
-            showError(document.querySelector("#emailError"), "Invalid email format");
-            isValid = false;
-        }
+    if (fullNameInput.value.trim() === "") {
+        showError(document.querySelector("#nameError"), "Full name is required");
+        isValid = false;
+    }
+    if (emailInput.value === "") {
+        console.log('i am true')
+        showError(document.querySelector("#emailError"), "Email is required");
+        isValid = false;
+    } else if (!validateEmailFormat(emailInput.value.trim())) {
+        showError(document.querySelector("#emailError"), "Invalid email format");
+        isValid = false;
+    }
 
-       
-        const genderInput = document.querySelector('input[name="gender"]:checked');
-        let genderChecked = false;
-        if (genderInput) {
-            genderChecked = true;
-        }
-        if (!genderChecked) {
-            showError(document.querySelector("#genderError"), "Please select a gender");
-            isValid = false;
-        }
-        
-        const hobbyInput = document.querySelector('input[type="checkbox"]:checked');
-        let hobbyChecked = false;
-        if (hobbyInput) {
-            hobbyChecked = true;
-        }
-        if (!hobbyChecked) {
-            showError(
-                document.querySelector("#hobbyError"),
-                "Please select at least one hobby"
-            );
-            isValid = false;
-        }
-        
-        const countrySelect = document.querySelector("#country");
-        const stateSelect = document.querySelector("#state");
-        const citySelect = document.querySelector("#city");
-        if (countrySelect.value === "Select") {
-            showError(
-                document.querySelector("#countryError"),
-                "Please select a country"
-            );
-            isValid = false;
-        }
 
-        if (stateSelect.value === "Select") {
-            showError(document.querySelector("#stateError"), "Please select a state");
-            isValid = false;
-        }
+    const genderInput = document.querySelector('input[name="gender"]:checked');
+    let genderChecked = false;
+    if (genderInput) {
+        genderChecked = true;
+    }
+    if (!genderChecked) {
+        showError(document.querySelector("#genderError"), "Please select a gender");
+        isValid = false;
+    }
 
-        if (citySelect.value === "Select") {
-            showError(document.querySelector("#cityError"), "Please select a city");
-            isValid = false;
-        }    
+    const hobbyInput = document.querySelector('input[type="checkbox"]:checked');
+    let hobbyChecked = false;
+    if (hobbyInput) {
+        hobbyChecked = true;
+    }
+    if (!hobbyChecked) {
+        showError(
+            document.querySelector("#hobbyError"),
+            "Please select at least one hobby"
+        );
+        isValid = false;
+    }
+
+    const countrySelect = document.querySelector("#country");
+    const stateSelect = document.querySelector("#state");
+    const citySelect = document.querySelector("#city");
+    if (countrySelect.value === "Select") {
+        showError(
+            document.querySelector("#countryError"),
+            "Please select a country"
+        );
+        isValid = false;
+    }
+
+    if (stateSelect.value === "Select") {
+        showError(document.querySelector("#stateError"), "Please select a state");
+        isValid = false;
+    }
+
+    if (citySelect.value === "Select") {
+        showError(document.querySelector("#cityError"), "Please select a city");
+        isValid = false;
+    }
 
     return isValid;
 }
@@ -541,7 +588,7 @@ function clearErrors() {
         error.classList.add("noDisplay");
     });
 }
-function dynamicClearError(locator){
+function dynamicClearError(locator) {
     let error = document.querySelector(locator)
     error.textContent = "";
     error.classList.add("noDisplay");
@@ -557,7 +604,7 @@ function emailExist(email) {
     if (emailDataBase.includes(email)) {
         showError(document.querySelector("#emailError"), "email already exist");
         return false;
-    }        
+    }
     return true;
 
 }
