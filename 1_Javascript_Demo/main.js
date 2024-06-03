@@ -126,13 +126,13 @@ function showDataBackToForm(currRow) {
     currRow.cells[3].textContent.split(",").forEach((item) => {
         document
             .querySelector(`input[value="${item}"]`)
-            .removeAttribute("checked", "checked");
+            .checked = true
     });
     document.querySelector("#fullName").value = currRow.cells[0].textContent;
     document.querySelector("#email").value = currRow.cells[1].textContent;
     document
         .querySelector(`input[value="${currRow.cells[2].textContent}"]`)
-        .setAttribute("checked", "checked");
+        .checked = true
     currRow.cells[3].textContent.split(",").forEach((item) => {
         document
             .querySelector(`input[value="${item}"]`)
@@ -146,6 +146,29 @@ function showDataBackToForm(currRow) {
     document.querySelector("#city").value = currRow.cells[6].textContent;
 }
 
+function resetData(){
+    document
+        .querySelector('#fullName')
+        .value = ''
+    document
+        .querySelectorAll('select')
+        .forEach(item => item.innerHTML = '<option>Select</option>')
+    // if (document.querySelector('input[type="radio"]:checked').checked || document.querySelector('input[type="checkbox"]:checked').checked) {
+        document
+            .querySelectorAll('input[type="checkbox"]')
+            .forEach((item) => {
+                if (item.checked) {
+                    item.checked = false;
+                }   
+            });
+        document
+            .querySelector('input[type="radio"]:checked')
+            .checked = false    
+    // }
+    document
+        .querySelector("#searchInputField")
+        .value = ''
+}
 // function for editing row
 function editRow(element) {
     let currRow = element.parentNode.parentNode;
@@ -179,29 +202,20 @@ function editRow(element) {
         .querySelector("#resetBtn")
         .replaceWith(document.querySelector("#resetBtn").cloneNode(true));
 
-    // event delegation on editing state in form element
+
     document
         .querySelector("#resetBtn")
         .addEventListener("click", function (event) {
-
+            //intial reset
             document
                 .querySelector(`input[value="${currRow.cells[2].textContent}"]`)
                 .removeAttribute("checked", "checked");
             currRow.cells[3].textContent.split(",").forEach((item) => {
                 document
                     .querySelector(`input[value="${item}"]`)
-                    .removeAttribute("checked", "checked");
+                    .checked = true             
             });
-            document.querySelector('#email').value = currRow.cells[1].textContent
-            document.querySelector('#fullName').value = ''
-            document.querySelectorAll('select').forEach(item => item.innerHTML = '<option>Select</option>')
-            document
-            .querySelectorAll('input[type="checkbox"]')    
-            .forEach((item) => {
-                if(item.checked){
-                    item.checked = false;
-                }
-        });
+            resetData()
             event.preventDefault()
         });
 
@@ -215,23 +229,19 @@ function editRow(element) {
                     .querySelector('#email')
                     .removeAttribute("disabled", "true")
                 document
+                    .querySelector('#email')
+                    .value= ''
+                document
+                    .querySelector('input[type="submit"]')
+                    .removeAttribute("disabled", "true");
+                document
                     .querySelectorAll("#deleteBtn")
                     .forEach((item) => item.removeAttribute("disabled"));
                 document
                     .querySelector('input[type="submit"]')
                     .removeAttribute("disabled", "true");
-
-                document
-                    .querySelector(`input[type="radio"]:checked`)
-                    .removeAttribute("checked", "checked");
-                document
-                    .querySelectorAll('input[type="checkbox"]')    
-                    .forEach((item) => {
-                        if(item.checked){
-                            item.checked = false;
-                        }
-                });
-                document.querySelector("#userForm").reset();
+                
+                resetData()
                 this.style.display = "none";
             }
         });
@@ -298,13 +308,6 @@ function toggleAscendDecend() {
 }
 
 //search field : filter function
-// document
-//     .querySelector("#searchInputField")
-//     .addEventListener('keyup', function (event) {
-//         console.log(this.value)
-//         let searchValue = this.value.trim();
-//         filterData(searchValue)
-//     })
 
 ['keyup', 'paste', 'copy'].forEach(item => {
     document
@@ -317,7 +320,7 @@ function toggleAscendDecend() {
 })
 
 function filterData(value) {
-    let searchData = userDataBase.filter(item => item.name.toLowerCase().includes(value))
+    let searchData = userDataBase.filter(item => item.name.toLowerCase().includes(value.toLowerCase()))
     diplayAllData(searchData)
 }
 
@@ -325,51 +328,10 @@ function filterData(value) {
 //Main function Of page
 document.addEventListener("DOMContentLoaded", function () {
 
+    //predeined data to show
+    diplayAllData(userDataBase);
+   
     //selection list are populating here
-
-    document
-        .querySelector("#email")
-        .addEventListener("keydown", function (event) {
-            let keyPressed = event.keyCode || event.which
-            console.log(keyPressed)
-            console.log(this.value)
-            if (keyPressed === 13) {
-                return
-            }
-            if (event.key == "Backspace") {
-                dynamicClearError('#emailError')
-                // clearErrors()
-            } else {
-                dynamicClearError('#emailError')
-                // clearErrors()
-            }
-
-        })
-    document
-        .querySelector("#email")
-        .addEventListener("keyup", function (event) {
-            console.log(this.value)
-            console.log(emailDataBase.includes(this.value))
-            if (emailDataBase.includes(this.value)) {
-                showError(document.querySelector("#emailError"), "email already exist");
-            }
-            //not nessacary
-            if (!validateEmailFormat(this.value)) {
-                document.querySelector("#email").classList.remove('redBorder')
-            } if (validateEmailFormat) {
-                document.querySelector("#email").classList.add('redBorder')
-            }
-        })
-    // document
-    //     .querySelector("#email")
-    //     .addEventListener("keyup", function (event) {
-    //         let node = document.querySelector("#emailError")
-    //         node.textContent = "Invalid email format";
-    //         node.classList.add("display");
-    //         if(validateEmailFormat(this.value)){
-    //             dynamicClearError('#emailError')
-    //         }
-    //     })
     document
         .querySelector("#country")
         .addEventListener("click", function (event) {
@@ -391,11 +353,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         });
 
-
-    //predeined data to show
-    diplayAllData(userDataBase);
-
-
     //Event delegation
     document
         .querySelector("#tabeleHead")
@@ -412,7 +369,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 
-    //data are gettin showed here
+    //data are gettin showed on table here
     document
         .querySelector("#userForm")
         .addEventListener("submit", function (event) {
@@ -428,28 +385,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 // this.reset();
                 originalSelectionListState();
                 console.log("Form submitted successfully");
+                resetData()
                 this.reset();
             }
             return false;
         });
 
     document
-        .querySelector("#userForm")
-        .addEventListener("reset", function (event) {
-            document
-                .querySelector(`input[type=radio"]`)
-                .removeAttribute("checked", "checked");
-            // currRow.cells[3].textContent.split(",").forEach((item) => {
-            //     document
-            //         .querySelector(`input[value="${item}"]`)
-            //         .removeAttribute("checked", "checked");
-            // });
+        .querySelector("#resetBtn")
+        .addEventListener("click", function (event) {
             document.querySelector('#email').value = ''
-            document.querySelector('#fullName').value = ''
-            document.querySelectorAll('select').forEach(item => item.innerHTML = '<option>Select</option>')
-
-            event.preventDefault()
             clearErrors();
+            resetData()
         });
 
     document
@@ -459,8 +406,56 @@ document.addEventListener("DOMContentLoaded", function () {
             if (keyPressed == 13) {
                 event.preventDefault();
             }
-
         });
+
+    //on any input change validaion
+    document
+        .querySelector("#email")
+        .addEventListener("keydown", function (event) {
+            let keyPressed = event.keyCode || event.which
+            console.log(keyPressed)
+            console.log(this.value)
+            if (keyPressed === 13) {
+                return
+            }
+            if (event.key == "Backspace") {
+                dynamicClearError('#emailError')
+                // clearErrors()
+            } else {
+                dynamicClearError('#emailError')
+                // clearErrors()
+            }
+        })
+
+    document
+        .querySelector("#email")
+        .addEventListener("keyup", function (event) {
+            console.log(this.value)
+            console.log(emailDataBase.includes(this.value))
+            if (emailDataBase.includes(this.value)) {
+                showError(document.querySelector("#emailError"), "Email already exist");
+            } else if(this.value == ''){
+                showError(document.querySelector("#emailError"), "Email is required")
+            } else if(!validateEmailFormat(this.value)){
+                showError(document.querySelector("#emailError"), "Invalid email format");
+            }
+        })
+    
+    document
+        .querySelector("#fullName")
+        .addEventListener("keyup", function (event) {
+            const pattern = /[a-zA-Z ]/
+            if(this.value === ''){
+                showError(document.querySelector("#nameError"), "Full name is required");
+            }
+            else if(!pattern.test(this.value)){
+                showError(document.querySelector("#nameError"), "Enter proper name");
+            }
+            else{
+                dynamicClearError('#nameError')
+            }
+        }) 
+
     document
         .addEventListener('input', function (event) {
             let target = event.target
@@ -468,9 +463,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (target.value.length >= 3) {
                     dynamicClearError('#nameError')
                 }
-                // else{
-                //     showError(document.querySelector("#nameError"), "Full name is required")
-                // }
             }
             if (target.id == document.querySelector('#email').id) {
                 if (!emailExist(target.value)) {
@@ -506,19 +498,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //************************** VALIDATION *******************************************/
 
-// Validation function
 function validateForm() {
     clearErrors();
 
     let isValid = true;
+    const pattern = /[a-zA-Z ]/  
     const fullNameInput = document.querySelector("#fullName");
     const emailInput = document.querySelector("#email");
+    const genderInput = document.querySelector('input[name="gender"]:checked');
+    const hobbyInput = document.querySelector('input[type="checkbox"]:checked');
+    const countrySelect = document.querySelector("#country");
+    const stateSelect = document.querySelector("#state");
+    const citySelect = document.querySelector("#city");
 
     if (fullNameInput.value.trim() === "") {
         showError(document.querySelector("#nameError"), "Full name is required");
         isValid = false;
+    }else if(!pattern.test(fullNameInput.value.trim()) ){
+        showError(document.querySelector("#nameError"), "Enter proper name");
+        isValid = false;
     }
-    if (emailInput.value === "") {
+
+    if (emailInput.value === "") {  
         console.log('i am true')
         showError(document.querySelector("#emailError"), "Email is required");
         isValid = false;
@@ -527,8 +528,6 @@ function validateForm() {
         isValid = false;
     }
 
-
-    const genderInput = document.querySelector('input[name="gender"]:checked');
     let genderChecked = false;
     if (genderInput) {
         genderChecked = true;
@@ -538,7 +537,6 @@ function validateForm() {
         isValid = false;
     }
 
-    const hobbyInput = document.querySelector('input[type="checkbox"]:checked');
     let hobbyChecked = false;
     if (hobbyInput) {
         hobbyChecked = true;
@@ -551,9 +549,6 @@ function validateForm() {
         isValid = false;
     }
 
-    const countrySelect = document.querySelector("#country");
-    const stateSelect = document.querySelector("#state");
-    const citySelect = document.querySelector("#city");
     if (countrySelect.value === "Select") {
         showError(
             document.querySelector("#countryError"),
@@ -561,17 +556,14 @@ function validateForm() {
         );
         isValid = false;
     }
-
     if (stateSelect.value === "Select") {
         showError(document.querySelector("#stateError"), "Please select a state");
         isValid = false;
     }
-
     if (citySelect.value === "Select") {
         showError(document.querySelector("#cityError"), "Please select a city");
         isValid = false;
     }
-
     return isValid;
 }
 
@@ -588,6 +580,8 @@ function clearErrors() {
         error.classList.add("noDisplay");
     });
 }
+
+//function on change clear error
 function dynamicClearError(locator) {
     let error = document.querySelector(locator)
     error.textContent = "";
@@ -600,11 +594,11 @@ function validateEmailFormat(email) {
     return emailRegex.test(email);
 }
 
+//function to check email existence
 function emailExist(email) {
     if (emailDataBase.includes(email)) {
-        showError(document.querySelector("#emailError"), "email already exist");
+        showError(document.querySelector("#emailError"), "Email already exist");
         return false;
     }
     return true;
-
 }

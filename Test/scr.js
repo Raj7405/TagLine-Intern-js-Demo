@@ -306,3 +306,300 @@ function validNoneTextInput(){
 
     return true;
 }
+
+/******************************NININI************/
+// Validation function
+// function validateForm() {
+//     // clearErrors();
+
+//     const fullNameInput = document.querySelector("#fullName");
+//     const emailInput = document.querySelector("#email");
+
+//     document
+//         .querySelector("#userForm")
+//         .addEventListener("change", function (event) {
+//             let target = event.target
+//             console.log(target)
+//             if(target.id == fullNameInput.id){
+//                 console.log([target.id, fullNameInput.id]   )
+//                 if (fullNameInput.value.trim() === "") {
+//                     showError(document.querySelector("#nameError"), "Full name is required");
+//                     return false;
+//                 }
+//             }
+//             if(target.id == emailInput.id){
+//                 console.log([target.id, emailInput.id])
+//                 if (emailInput.value === "") {
+//                     console.log('i am true')
+//                     showError(document.querySelector("#emailError"), "Email is required");
+//                     return false;
+//                 } else if (!validateEmailFormat(emailInput.value.trim())) {
+//                     showError(document.querySelector("#emailError"), "Invalid email format");
+//                     return false;
+//                 } 
+//             }
+//         });
+    
+
+//         if (fullNameInput.value.trim() === "") {
+//             showError(document.querySelector("#nameError"), "Full name is required");
+//              return false;
+//         }    
+//         if (emailInput.value === "") {
+//             console.log('i am true')
+//             showError(document.querySelector("#emailError"), "Email is required");
+//              return false;
+//         } else if (!validateEmailFormat(emailInput.value.trim())) {
+//             showError(document.querySelector("#emailError"), "Invalid email format");
+//              return false;
+//         }
+//     return true;
+// }
+
+//On submit empty
+// function validateFormOnSubmit(){
+//     // clearErrors()
+//     let isValid = true
+//     let fullNameInput = document.querySelector("#fullName");
+//     let emailInput = document.querySelector("#email");
+//     let genderInput = document.querySelector('input[name="gender"]:checked');
+//     let hobbyInput = document.querySelector('input[type="checkbox"]:checked');
+//     let countrySelect = document.querySelector("#country");
+//     let stateSelect = document.querySelector("#state");
+//     let citySelect = document.querySelector("#city");
+
+//     ////Name validation on submit
+//     if(fullNameInput.value.trim() == ''){
+//         showError(document.querySelector("#nameError"), "Full name is required 'validateform' ");
+//         isValid =  false
+//     }
+
+//     //Email validation on submit
+//     if(emailInput.value.trim()== ''){
+//         showError(document.querySelector("#emailError"), "Email is required");
+//         isValid =  false;
+//     }
+
+//     //radio validation on submit
+//     let genderChecked = false;
+//     if (genderInput) {
+//         genderChecked = true;
+//     }
+//     if (!genderChecked) {
+//         showError(document.querySelector("#genderError"), "Please select a gender");
+//         isValid =  false;
+//     }
+    
+//     //checkbox validation on submit
+//     let hobbyChecked = false;
+//     if (hobbyInput) {
+//         hobbyChecked = true;
+//     }
+//     if (!hobbyChecked) {
+//         showError(
+//             document.querySelector("#hobbyError"),
+//             "Please select at least one hobby"
+//         );
+//         isValid =  false;
+//     }
+
+//     //Selection validation on submit
+//     if (countrySelect.value === "Select") {
+//         showError(
+//             document.querySelector("#countryError"),
+//             "Please select a country"
+//         );
+//         isValid =  false;
+//     }
+
+//     if (stateSelect.value === "Select") {
+//         showError(document.querySelector("#stateError"), "Please select a state");
+//         isValid =  false;
+//     }
+
+//     if (citySelect.value === "Select") {
+//         showError(document.querySelector("#cityError"), "Please select a city");
+//         isValid =  false;
+//     }    
+
+//     return isValid
+// }
+
+// function validRadio(){
+//     // clearErrors();
+//     dynamicClearError('#genderError')
+//     let isValid = true
+//     const genderInput = document.querySelector('input[name="gender"]:checked');
+//     let genderChecked = false;
+//     if (genderInput) {
+//         genderChecked = true;
+//     }
+//     if (!genderChecked) {
+//         showError(document.querySelector("#genderError"), "Please select a gender");
+//         isValid = false;
+//     }
+
+//     return isValid
+// }
+
+// function validCheckbox(){
+//     // clearErrors();
+//     dynamicClearError('#hobbyError')
+//     let isValid = true
+//     const hobbyInput = document.querySelector('input[type="checkbox"]:checked');
+//     let hobbyChecked = false;
+//     if (hobbyInput) {
+//         hobbyChecked = true;
+//     }
+//     if (!hobbyChecked) {
+//         showError(
+//             document.querySelector("#hobbyError"),
+//             "Please select at least one hobby"
+//         );
+//         isValid = false;
+//     }
+//     return isValid
+// }
+
+// function validSelection(){
+//     // dynamicClearError('#countryR')
+//     clearErrors();
+//     let isValid = true
+//     const countrySelect = document.querySelector("#country");
+//     const stateSelect = document.querySelector("#state");
+//     const citySelect = document.querySelector("#city");
+//     if (countrySelect.value === "Select") {
+//         showError(
+//             document.querySelector("#countryError"),
+//             "Please select a country"
+//         );
+//         isValid = false;
+//     }
+
+//     if (stateSelect.value === "Select") {
+//         showError(document.querySelector("#stateError"), "Please select a state");
+//         isValid = false;
+//     }
+
+//     if (citySelect.value === "Select") {
+//         showError(document.querySelector("#cityError"), "Please select a city");
+//         isValid = false;
+//     }    
+//     return isValid
+// }
+
+// function validNoneTextInput(){
+//             clearErrors();
+//             let isValid = true;
+//             let fullNameInput = document.querySelector("#fullName");
+//             let emailInput = document.querySelector("#email");
+//             const genderInput = document.querySelector('input[name="gender"]:checked');
+//             const hobbyInput = document.querySelector('input[type="checkbox"]:checked');
+//             const countrySelect = document.querySelector("#country");
+//             const stateSelect = document.querySelector("#state");
+//             const citySelect = document.querySelector("#city");
+
+
+//             //Name validation on submit
+//             if(fullNameInput.value.trim() === ''){
+//                 showError(document.querySelector("#nameError"), "Full name is required");
+//                 isValid = false
+//             }
+
+//             //Email validation on submit
+//             if(emailInput.value.trim() === ''){
+//                 showError(document.querySelector("#emailError"), "Email is required");
+//                 isValid = false;
+//             }
+
+//             let genderChecked = false;
+//             if (genderInput) {
+//                 genderChecked = true;
+//             }
+//             if (!genderChecked) {
+//                 showError(document.querySelector("#genderError"), "Please select a gender");
+//                 isValid = false;
+//             }
+    
+//             let hobbyChecked = false;
+//             if (hobbyInput) {
+//                 hobbyChecked = true;
+//             }
+//             if (!hobbyChecked) {
+//                 showError(
+//                     document.querySelector("#hobbyError"),
+//                     "Please select at least one hobby"
+//                 );
+//                 isValid = false;
+//             }
+    
+//             if (countrySelect.value === "Select") {
+//                 showError(
+//                     document.querySelector("#countryError"),
+//                     "Please select a country"
+//                 );
+//                 isValid = false;
+//             }
+    
+//             if (stateSelect.value === "Select") {
+//                 showError(document.querySelector("#stateError"), "Please select a state");
+//                 isValid = false;
+//             }
+    
+//             if (citySelect.value === "Select") {
+//                 showError(document.querySelector("#cityError"), "Please select a city");
+//                 isValid = false;
+//             }
+    
+//         return isValid;
+// }
+
+
+    // document
+    //     .querySelector("#userForm")
+    //     .addEventListener("change", function (event) {
+    //         // validNoneTextInput()
+    //         let target = event.target
+    //         console.log(target.id)
+    //         if(target.id === document.querySelector('#fullName').id){
+    //             validateForm()
+    //         }
+    //         if(target.id === document.querySelector('#email').id){
+    //             validateForm()
+    //         }
+    //         if(target.tagName === document.querySelector('input[type="radio"]').tagName){
+    //             validRadio()
+    //         }
+    //         if(target.tagName === document.querySelector('input[type="checkbox"]').tagName){
+    //             validCheckbox()
+    //         }
+    //         if(target.tagName === 'SELECT'){
+    //             validSelection()
+    //         }
+    //     });
+
+    // document
+    // .querySelector('#userForm')
+    // .addEventListener('input', function(event){
+    //     let target = event.target
+    //     if(target.id === document.querySelector('#fullName').id){
+    //         console.log("input event vala hu")
+    //         dynamicClearError('#emailError')
+    //     }
+    //     if(target.id === document.querySelector('#email').id){
+    //         dynamicClearError('#emailError')
+    //     }
+    //     if(target.tagName === document.querySelector('input[type="radio"]').tagName){
+    //         dynamicClearError('#genderError')
+    //     }
+    //     if(target.tagName === document.querySelector('input[type="checkbox"]').tagName){
+    //         console.log("input event vala hu")
+    //         dynamicClearError('#hobbyError')
+    //     }
+    //     if(target.tagName === 'SELECT'){
+    //         dynamicClearError('#countryError')
+    //         dynamicClearError('#stateError')
+    //         dynamicClearError('#cityError')
+    //         // clearErrors()
+    //     }
+    // })

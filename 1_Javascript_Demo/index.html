@@ -22,7 +22,9 @@
                         placeholder="Full Name"
                         
                     />
-                    <div class="errorDiv" id="nameError"></div>
+                    <div class="error">
+                        <div class="errorDiv" id="nameError"></div>
+                    </div>
                 </div>
                 <div class="inputGroup">
                     <label for="email">Email:</label>
@@ -31,7 +33,9 @@
                         id="email"
                         placeholder="xyz@gmail.com"
                     />
-                    <div class="errorDiv" id="emailError"></div>
+                    <div class="error">
+                        <div class="errorDiv" id="emailError"></div>
+                    </div>
                 </div>
             </div>
             <br>
@@ -46,7 +50,9 @@
                             <input type="radio" id="other" name="gender" value="Other">
                             <label for="other">Other</label> <br>
                         </label>
-                        <div class="errorDiv" id="genderError"></div>
+                        <div class="error">
+                            <div class="errorDiv" id="genderError"></div>
+                        </div>
                     </div>
                     
                     <div class="inputGroup checkboxDiv">
@@ -60,7 +66,9 @@
                             <input type="checkbox" id="traveling" value="Traveling">
                             <label for="travling">Traveling</label> <br>
                         </label>
-                        <div class="errorDiv" id="hobbyError"></div>
+                        <div class="error">
+                            <div class="errorDiv" id="hobbyError"></div>
+                        </div>
                     </div>
                 </div>
                 
@@ -71,7 +79,9 @@
                         <select name="countrys" id="country" required>
                             <option value="Select">Select</option>
                         </select>
-                        <div class="errorDiv" id="countryError"></div>
+                        <div class="error">
+                            <div class="errorDiv" id="countryError"></div>
+                        </div>
                     </div>
     
                     <div class="inputGroup">                    
@@ -79,7 +89,9 @@
                         <select name="states" id="state" required>
                             <option value="Select">Select</option>
                         </select>
-                        <div class="errorDiv" id="stateError"></div>
+                        <div class="error">
+                            <div class="errorDiv" id="stateError"></div>
+                        </div>
                     </div>
                     
                     <div class="inputGroup">
@@ -87,7 +99,9 @@
                          <select name="citys" id="city" required>
                             <option value="Select">Select</option>
                          </select>
-                         <div class="errorDiv" id="cityError"></div>
+                         <div class="error">
+                             <div class="errorDiv" id="cityError"></div>
+                         </div>
                     </div>
                 </div>
 
@@ -101,9 +115,10 @@
                 />
                 
                 <input 
-                    type="reset"
+                    type="button"
                     id="resetBtn"
                     class="btn"
+                    value="reset"
                 />
                 <input 
                     type="button"

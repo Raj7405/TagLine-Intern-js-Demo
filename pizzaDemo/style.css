@@ -28,8 +28,40 @@
     width: 50%;
     height: 100%;
     border: 1px black solid;
+    padding: 5px 2px;
     margin: 5px;
+}
+.orderDetail .orderCard {
+    border: 1px solid black;
+    margin: 3px;
+    display: flex;
+    flex-direction: column;
+}
+
+.orderDetailCard, .orderStatusCard{
+    border-bottom: 1px solid black;
+    padding: 5px 2px;
+    margin: 15px;
+}
+.orderStatus{
+    display: flex;
+    flex-direction: column;
+    
+}
+.orderStatus h3{
+    text-align: center;
+    padding: 5px;
+}
+.orderStatus h4{
+    text-align: center;
+    margin-bottom: 5px;
+}
+.orderStatus button{
+    display: inline-block;
+    margin: auto;
+    padding: 5px;
 }
 .cardImg{
     text-align: center;
+    width: 100%;
 }
