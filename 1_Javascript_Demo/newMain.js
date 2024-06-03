@@ -1,5 +1,5 @@
 let toggleFlag = 1;
-const emailDataBase = ["patil@gmail.com", "rajendra@gmail.com"];
+// const emailDataBase = ["patil@gmail.com", "rajendra@gmail.com"];
 const userDataBase = [
     {
         name: "Sammed Patil",
@@ -14,7 +14,7 @@ const userDataBase = [
         name: "Rajendra Chaudhari",
         email: "rajendra@gmail.com",
         gender: "Male",
-        hobby: ["Sport", "Traveling"],
+        hobby: ["Sport", "Reading"],
         country: "India",
         state: "Gujarat",
         city: "Ankleshwar",
@@ -77,8 +77,8 @@ function collectHobbies() {
 
 //collect data from form input feild
 function collectDataOfForm() {
-    const name = document.querySelector("#fullName")?.value.trim();
-    const email = document.querySelector("#email")?.value.trim();
+    const name = document.querySelector("#name")?.value.trim();
+    const email = document.querySelector("#email")?.value.trim().toLowerCase();
     const gender = document.querySelector('input[name="gender"]:checked')?.value;
     const hobby = collectHobbies();
     const country = document.querySelector("#country")?.value;
@@ -120,11 +120,13 @@ function showDataBackToForm(currRow) {
     document
         .querySelectorAll('input[type="checkbox"]')
         .forEach((item) => (item.checked = false));
-    currRow.cells[3].textContent.split(",").forEach((item) => {
+    currRow.cells[3]
+        .textContent.split(",")
+        .forEach((item) => {
         document.querySelector(`input[value="${item}"]`).checked = true;
-    });
+        });
     document
-        .querySelector("#fullName")
+        .querySelector("#name")
         .value = currRow.cells[0].textContent;
     document
         .querySelector("#email")
@@ -149,10 +151,70 @@ function showDataBackToForm(currRow) {
         .value = currRow.cells[6].textContent;
 }
 
+function showDataUsingObj(email){
+    console.log(email)
+    document
+        .querySelectorAll('input[type="checkbox"]')
+        .forEach((item) => (item.checked = false));
 
+    let indexOfCurrObj = userDataBase.findIndex(
+        (item) => item.email == email
+    );
+
+    console.log(indexOfCurrObj)
+    const input = Array.from(document.querySelector('#userForm').querySelectorAll('input'))
+    input.forEach(item => {
+        console.log(item.type)
+        switch(item.type){
+            case 'text':
+                item.value = userDataBase[indexOfCurrObj][item.id]
+                console.log(item)
+                console.log(userDataBase[indexOfCurrObj][item.id])
+                break;
+            // case 'email':
+            //     item.value = userDataBase[indexOfCurrObj][item.id]
+            //     console.log(item)
+            //     console.log(userDataBase[indexOfCurrObj][item.id])
+            //     break;
+            case 'radio':
+                if(item.id.toLowerCase() == userDataBase[indexOfCurrObj][item.name].toLowerCase()){
+                    item.checked = true
+                }
+                break;
+            case 'checkbox':
+                if(userDataBase[indexOfCurrObj][item.name].includes(item.value)){
+                    item.checked = true
+                }
+                break;
+        }
+    })
+    
+    const selectArr = Array.from(document.querySelectorAll('select'))
+    creatSelctionList(country, "", "country");
+    selectArr.forEach(item => {
+        switch(item.id){
+            case 'country':
+                console.log(userDataBase[indexOfCurrObj][item.id])
+                creatSelctionList(state, userDataBase[indexOfCurrObj][item.id], "state");
+                item.value = userDataBase[indexOfCurrObj][item.id] 
+                break;
+
+            case 'state':
+                console.log(userDataBase[indexOfCurrObj][item.id])
+                creatSelctionList(city, userDataBase[indexOfCurrObj][item.id], "city");
+                item.value = userDataBase[indexOfCurrObj][item.id] 
+                break;
+
+            case 'city':
+                item.value = userDataBase[indexOfCurrObj][item.id] 
+                break;
+        }
+    })
+    console.log(selectArr)
+}
 //reset data of form
 function resetData() {
-    document.querySelector("#fullName").value = "";
+    document.querySelector("#name").value = "";
     document
         .querySelectorAll("select")
         .forEach((item) => (item.innerHTML = "<option>Select</option>"));
@@ -173,7 +235,8 @@ function editRow(element) {
     clearErrors();
     let currRow = element.parentNode.parentNode;
 
-    showDataBackToForm(currRow);
+    // showDataBackToForm(currRow);
+    showDataUsingObj(currRow.cells[1].textContent)
 
     document.querySelector("#email").setAttribute("disabled", "true");
     document
@@ -241,13 +304,10 @@ function editRow(element) {
 
 //edited data change in main user object
 function pushDataToObj(obj) {
-    obj.name = document.querySelector("#fullName").value;
-    obj.email = document.querySelector("#email").value;
+    const locator = ['name', 'email', 'country','state', 'city']
+    locator.map(item =>  obj[item] = document.querySelector(`#${item}`).value)
     obj.gender = document.querySelector('input[name="gender"]:checked').value;
     obj.hobby = collectHobbies();
-    obj.country = document.querySelector("#country").value;
-    obj.state = document.querySelector("#state").value;
-    obj.city = document.querySelector("#city").value;
     diplayAllData(userDataBase);
 }
 
@@ -258,7 +318,7 @@ function deleteRow(element) {
         (obj) => obj.email == currRow.cells[1].textContent
     );
     userDataBase.splice(indexOfObj, 1);
-    emailDataBase.splice(indexOfObj, 1);
+    // emailDataBase.splice(indexOfObj, 1);
     element.parentNode.parentNode.innerHTML = "";
 }
 
@@ -306,7 +366,7 @@ function normalDataLog() {
 
 
 //search field : filter function
-["keyup", "paste", "copy"].forEach((item) => {
+['keyup', 'paste', 'copy'].forEach((item) => {
     document
         .querySelector("#searchInputField")
         .addEventListener(item, function (event) {
@@ -324,78 +384,116 @@ function filterData(value) {
 }
 
 //Validation Logic
-function validateForm() {
-    
-    clearErrors();
-
-    let isValid = true;
+function fullNameTest(fullNameInput){
+    let isValid = true
     const pattern = /[a-zA-Z ]/;
-    const fullNameInput = document.querySelector("#fullName");
-    const emailInput = document.querySelector("#email");
-    const genderInput = document.querySelector('input[name="gender"]:checked');
-    const hobbyInput = document.querySelector('input[type="checkbox"]:checked');
-    const countrySelect = document.querySelector("#country");
-    const stateSelect = document.querySelector("#state");
-    const citySelect = document.querySelector("#city");
-
-    //Name validation
     if (fullNameInput.value.trim() === "") {
         showError(document.querySelector("#nameError"), "Full name is required");
         isValid = false;
     } else if (!pattern.test(fullNameInput.value.trim())) {
         showError(document.querySelector("#nameError"), "Enter proper name");
         isValid = false;
+    }else {
+        dynamicClearError("#nameError");
     }
+    return isValid
+}
+function emailTest(emailInput){
+    let isValid = true
+    if(isValid){
+        if (emailInput.value === "") {
+            console.log("i am true");
+            showError(document.querySelector("#emailError"), "Email is required");
+            isValid = false;
+        } 
+        else if (!validateEmailFormat(emailInput.value.trim().toLowerCase())) {
+            showError(document.querySelector("#emailError"), "Invalid email format");
+            isValid = false;
+        }
+    }   
+    return isValid
+}
 
-    //Email Validation
-    if (emailInput.value === "") {
-        console.log("i am true");
-        showError(document.querySelector("#emailError"), "Email is required");
-        isValid = false;
-    } else if (!validateEmailFormat(emailInput.value.trim())) {
-        showError(document.querySelector("#emailError"), "Invalid email format");
-        isValid = false;
-    }
+function validateForm() {
+    
+    clearErrors();
 
-    //Radio button validation
-    let genderChecked = false;
-    if (genderInput) {
-        genderChecked = true;
-    }
-    if (!genderChecked) {
-        showError(document.querySelector("#genderError"), "Please select a gender");
-        isValid = false;
-    }
+    let isValid = true;
+    const pattern = /[a-zA-Z ]/;
+    const fullNameInput = document.querySelector("#name");
+    const emailInput = document.querySelector("#email");
+    const genderInput = document.querySelector('input[name="gender"]:checked') ??
+    document.querySelector('input[type="radio"]');
+    const hobbyInput = document.querySelector('input[type="checkbox"]:checked') ?? document.querySelector('input[type="checkbox"]');
+    const countrySelect = document.querySelector("#country");
+    const stateSelect = document.querySelector("#state");
+    const citySelect = document.querySelector("#city");
 
-    //checkbox validation
-    let hobbyChecked = false;
-    if (hobbyInput) {
-        hobbyChecked = true;
-    }
-    if (!hobbyChecked) {
-        showError(
-            document.querySelector("#hobbyError"),
-            "Please select at least one hobby"
-        );
-        isValid = false;
-    }
+    [fullNameInput, emailInput, genderInput, hobbyInput, countrySelect, stateSelect, citySelect].forEach(item => {
+        let parm = item ? item.type : item.name
+        console.log('parm',parm)
 
-    //Selction List validation
-    if (countrySelect.value === "Select") {
-        showError(
-            document.querySelector("#countryError"),
-            "Please select a country"
-        );
-        isValid = false;
-    }
-    if (stateSelect.value === "Select") {
-        showError(document.querySelector("#stateError"), "Please select a state");
-        isValid = false;
-    }
-    if (citySelect.value === "Select") {
-        showError(document.querySelector("#cityError"), "Please select a city");
-        isValid = false;
-    }
+        switch(parm){
+            case 'text':
+                if(item.id === 'name'){
+                    isValid = fullNameTest(fullNameInput)
+                    console.log(isValid)
+                }else if(item.id === 'email'){
+                    isValid = emailTest(emailInput)
+                    console.log(isValid)
+                }
+                break;
+
+            case 'radio':
+                let genderChecked = false;
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    if(radio.checked){
+                        genderChecked = true
+                    }
+                })
+                console.log(genderInput)
+                if (!genderChecked) {
+                    showError(document.querySelector("#genderError"), "Please select a gender");
+                    isValid = false;
+                }
+                break;
+
+            case 'checkbox':
+                let hobbyChecked = false;
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkBox => {
+                    if(checkBox.checked){
+                        hobbyChecked = true
+                    }
+                })
+                if (!hobbyChecked) {
+                    showError(
+                        document.querySelector("#hobbyError"),
+                        "Please select at least one hobby"
+                    );
+                    isValid = false;
+                }
+                break;
+
+            case 'select-one':
+                if (countrySelect.value === "Select") {
+                    showError(
+                        document.querySelector("#countryError"),
+                        "Please select a country"
+                    );
+                    isValid = false;
+                }
+                if (stateSelect.value === "Select") {
+                    showError(document.querySelector("#stateError"), "Please select a state");
+                    isValid = false;
+                }
+                if (citySelect.value === "Select") {
+                    showError(document.querySelector("#cityError"), "Please select a city");
+                    isValid = false;
+                }
+                console.log(isValid)
+                break;
+        }
+    })
 
     return isValid;
 }
@@ -429,7 +527,8 @@ function validateEmailFormat(email) {
 
 //function to check email existence
 function emailExist(email) {
-    if (emailDataBase.includes(email)) {
+    let presentEmail = userDataBase.find(item => item.email == email)
+    if (presentEmail) {
         showError(document.querySelector("#emailError"), "Email already exist");
         return false;
     }
@@ -483,9 +582,9 @@ document.addEventListener("DOMContentLoaded", function () {
         .querySelector("#userForm")
         .addEventListener("submit", function (event) {
             console.log(collectDataOfForm());
-            if (validateForm() && emailExist(document.querySelector("#email").value)) {
+            if (validateForm() && emailExist(document.querySelector("#email").value.toLowerCase())) {
                 let userData = new CreateUserDataObj(...collectDataOfForm());
-                emailDataBase.push(userData.email);
+                // emailDataBase.push(userData.email);
                 userDataBase.push(userData);
                 createElementToDisplay(userData);
                 resetData();
@@ -531,54 +630,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     document.querySelector("#email").addEventListener("keyup", function (event) {
-        console.log(this.value);
-        console.log(emailDataBase.includes(this.value));
-        if (emailDataBase.includes(this.value)) {
-            showError(document.querySelector("#emailError"), "Email already exist");
-        } else if (this.value == "") {
-            showError(document.querySelector("#emailError"), "Email is required");
-        } else if (!validateEmailFormat(this.value)) {
-            showError(document.querySelector("#emailError"), "Invalid email format");
-        }
+        emailTest(this)
+        emailExist(this.value.toLowerCase())
     });
 
     document
-        .querySelector("#fullName")
+        .querySelector("#name")
         .addEventListener("keyup", function (event) {
-            const pattern = /[a-zA-Z ]/;
-            if (this.value === "") {
-                showError(
-                    document.querySelector("#nameError"),
-                    "Full name is required"
-                );
-            } else if (!pattern.test(this.value)) {
-                showError(document.querySelector("#nameError"), "Enter proper name");
-            } else {
-                dynamicClearError("#nameError");
-            }
+            fullNameTest(this)
         });
 
     //On any change if input is valid
     document.addEventListener("input", function (event) {
         let target = event.target;
-
-        //fullName
-        if (target.id == document.querySelector("#fullName").id) {
-            if (target.value.length >= 3) {
-                dynamicClearError("#nameError");
-            }
-        }
-
-        //Email
-        if (target.id == document.querySelector("#email").id) {
-            if (!emailExist(target.value)) {
-                dynamicClearError("#emailError");
-            }
-            if (target.value.trim() === "") {
-                showError(document.querySelector("#emailError"), "Email is required");
-            }
-        }
-
         //Gender
         if (target.type == document.querySelector('input[type="radio"]').type) {
             dynamicClearError("#genderError");
@@ -591,7 +655,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         
         //Selction List
-        console.log(target.value == document.querySelector("#country").value);
         if (target.value == document.querySelector("#country").value) {
             dynamicClearError("#countryError");
         }

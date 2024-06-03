@@ -13,14 +13,13 @@
         <form action="#" id="userForm" autocomplete="on">
             <div class="form-row textInput">
                 <div class="inputGroup">
-                    <label for="fullName">Full Name:
+                    <label for="name">Full Name:
                     </label>
 
                     <input 
                         type="text"  
-                        id="fullName"
-                        placeholder="Full Name"
-                        
+                        id="name"
+                        placeholder="Full Name" 
                     />
                     <div class="error">
                         <div class="errorDiv" id="nameError"></div>
@@ -57,13 +56,13 @@
                     
                     <div class="inputGroup checkboxDiv">
                         <label for="Hobby" class="multiChoice">Hobby:<br>
-                            <input type="checkbox" id="sport" value="Sport">
+                            <input type="checkbox" id="sport" value="Sport" name="hobby">
                             <label for="sport">Sport</label><br>
-                            <input type="checkbox" id="reading" value="Reading">
+                            <input type="checkbox" id="reading" value="Reading" name="hobby">
                             <label for="reading">Reading</label><br>
-                            <input type="checkbox" id="hiking" value="Hiking">
+                            <input type="checkbox" id="hiking" value="Hiking" name="hobby">
                             <label for="hiking">Hiking</label><br>
-                            <input type="checkbox" id="traveling" value="Traveling">
+                            <input type="checkbox" id="traveling" value="Traveling" name="hobby">
                             <label for="travling">Traveling</label> <br>
                         </label>
                         <div class="error">
@@ -179,7 +178,7 @@
     </section>
 </body>
 
-<script src="main.js" ></script>
-<!-- <script src="selctionList.js"></script> -->
+<!-- <script src="main.js" ></script> -->
+<script src="newMain.js"></script>
 
 </html>

@@ -556,3 +556,89 @@ document
         }
     });
 });
+
+function email(){
+    let isValid = true
+    if(isValid){
+        if (emailInput.value === "") {
+            console.log("i am true");
+            showError(document.querySelector("#emailError"), "Email is required");
+            isValid = false;
+        } 
+        else if (!validateEmailFormat(emailInput.value.trim().toLowerCase())) {
+            showError(document.querySelector("#emailError"), "Invalid email format");
+            isValid = false;
+        }
+        else if (!emailExist(this.value.toLowerCase())) {
+            showError(document.querySelector("#emailError"), "Email already exist");
+        } 
+    } 
+    else{
+        if (!emailExist(target.value)) {
+            dynamicClearError("#emailError");
+        }
+    }
+    return isValid
+}
+
+function showDataUsingObj(email){
+    console.log(email)
+    document
+        .querySelectorAll('input[type="checkbox"]')
+        .forEach((item) => (item.checked = false));
+
+    let indexOfCurrObj = userDataBase.findIndex(
+        (item) => item.email == email
+    );
+
+    console.log(indexOfCurrObj)
+    const input = Array.from(document.querySelector('#userForm').querySelectorAll('input'))
+    input.forEach(item => {
+        console.log(item.type)
+        switch(item.type){
+            case 'text':
+                item.value = userDataBase[indexOfCurrObj][item.id]
+                console.log(item)
+                console.log(userDataBase[indexOfCurrObj][item.id])
+                break;
+            // case 'email':
+            //     item.value = userDataBase[indexOfCurrObj][item.id]
+            //     console.log(item)
+            //     console.log(userDataBase[indexOfCurrObj][item.id])
+            //     break;
+            case 'radio':
+                if(item.id.toLowerCase() == userDataBase[indexOfCurrObj][item.name].toLowerCase()){
+                    item.checked = true
+                }
+                break;
+            case 'checkbox':
+                if(userDataBase[indexOfCurrObj][item.name].includes(item.value)){
+                    item.checked = true
+                }
+                break;
+        }
+    })
+    
+    const selectArr = Array.from(document.querySelectorAll('select'))
+    creatSelctionList(country, "", "country");
+    selectArr.forEach(item => {
+        switch(item.id){
+            case 'country':
+                console.log(userDataBase[indexOfCurrObj][item.id])
+                creatSelctionList(state, userDataBase[indexOfCurrObj][item.id], "state");
+                item.value = userDataBase[indexOfCurrObj][item.id] 
+                break;
+
+            case 'state':
+                console.log(userDataBase[indexOfCurrObj][item.id])
+                creatSelctionList(city, userDataBase[indexOfCurrObj][item.id], "city");
+                item.value = userDataBase[indexOfCurrObj][item.id] 
+                break;
+
+            case 'city':
+                item.value = userDataBase[indexOfCurrObj][item.id] 
+                break;
+        }
+    })
+    console.log(selectArr)
+}
