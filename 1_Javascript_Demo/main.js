@@ -77,7 +77,7 @@ function collectHobbies() {
 
 //collect data from form input feild
 function collectDataOfForm() {
-    const name = document.querySelector("#fullName")?.value.trim();
+    const name = document.querySelector("#name")?.value.trim();
     const email = document.querySelector("#email")?.value.trim();
     const gender = document.querySelector('input[name="gender"]:checked')?.value;
     const hobby = collectHobbies();
@@ -124,7 +124,7 @@ function showDataBackToForm(currRow) {
         document.querySelector(`input[value="${item}"]`).checked = true;
     });
     document
-        .querySelector("#fullName")
+        .querySelector("#name")
         .value = currRow.cells[0].textContent;
     document
         .querySelector("#email")
@@ -152,7 +152,7 @@ function showDataBackToForm(currRow) {
 
 //reset data of form
 function resetData() {
-    document.querySelector("#fullName").value = "";
+    document.querySelector("#name").value = "";
     document
         .querySelectorAll("select")
         .forEach((item) => (item.innerHTML = "<option>Select</option>"));
@@ -241,7 +241,7 @@ function editRow(element) {
 
 //edited data change in main user object
 function pushDataToObj(obj) {
-    obj.name = document.querySelector("#fullName").value;
+    obj.name = document.querySelector("#name").value;
     obj.email = document.querySelector("#email").value;
     obj.gender = document.querySelector('input[name="gender"]:checked').value;
     obj.hobby = collectHobbies();
@@ -330,7 +330,7 @@ function validateForm() {
 
     let isValid = true;
     const pattern = /[a-zA-Z ]/;
-    const fullNameInput = document.querySelector("#fullName");
+    const fullNameInput = document.querySelector("#name");
     const emailInput = document.querySelector("#email");
     const genderInput = document.querySelector('input[name="gender"]:checked');
     const hobbyInput = document.querySelector('input[type="checkbox"]:checked');
@@ -543,7 +543,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     document
-        .querySelector("#fullName")
+        .querySelector("#name")
         .addEventListener("keyup", function (event) {
             const pattern = /[a-zA-Z ]/;
             if (this.value === "") {
@@ -563,7 +563,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let target = event.target;
 
         //fullName
-        if (target.id == document.querySelector("#fullName").id) {
+        if (target.id == document.querySelector("#name").id) {
             if (target.value.length >= 3) {
                 dynamicClearError("#nameError");
             }
@@ -591,7 +591,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         
         //Selction List
-        console.log(target.value == document.querySelector("#country").value);
+        // console.log(target.value == document.querySelector("#country").value);
         if (target.value == document.querySelector("#country").value) {
             dynamicClearError("#countryError");
         }
