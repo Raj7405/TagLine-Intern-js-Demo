@@ -1,5 +1,4 @@
 let toggleFlag = 1;
-// const emailDataBase = ["patil@gmail.com", "rajendra@gmail.com"];
 const userDataBase = [
     {
         name: "Sammed Patil",
@@ -385,33 +384,40 @@ function filterData(value) {
 
 //Validation Logic
 function fullNameTest(fullNameInput){
-    let isValid = true
+    let nameFlag = true
     const pattern = /[a-zA-Z ]/;
-    if (fullNameInput.value.trim() === "") {
-        showError(document.querySelector("#nameError"), "Full name is required");
-        isValid = false;
-    } else if (!pattern.test(fullNameInput.value.trim())) {
-        showError(document.querySelector("#nameError"), "Enter proper name");
-        isValid = false;
-    }else {
-        dynamicClearError("#nameError");
-    }
-    return isValid
+    
+        if (fullNameInput.value.trim() === "") {
+            showError(document.querySelector("#nameError"), "Full name is required");
+            nameFlag = false;
+            // return false
+        } else if (!pattern.test(fullNameInput.value.trim())) {
+            showError(document.querySelector("#nameError"), "Enter proper name");
+            nameFlag = false;
+            // return false
+        } else{
+            dynamicClearError('#nameError')
+        }
+    
+    console.log('fullNameTest',nameFlag)
+    return nameFlag
+    // return true
 }
 function emailTest(emailInput){
-    let isValid = true
-    if(isValid){
+    let emailFlag = true
+    if(emailFlag){
         if (emailInput.value === "") {
-            console.log("i am true");
+            // console.log("i am true");
             showError(document.querySelector("#emailError"), "Email is required");
-            isValid = false;
+            emailFlag = false;
         } 
         else if (!validateEmailFormat(emailInput.value.trim().toLowerCase())) {
             showError(document.querySelector("#emailError"), "Invalid email format");
-            isValid = false;
+            emailFlag = false;
         }
     }   
-    return isValid
+    // console.log('emailInputTest', emailFlag)
+    return emailFlag
 }
 
 function validateForm() {
@@ -429,21 +435,20 @@ function validateForm() {
     const stateSelect = document.querySelector("#state");
     const citySelect = document.querySelector("#city");
 
-    [fullNameInput, emailInput, genderInput, hobbyInput, countrySelect, stateSelect, citySelect].forEach(item => {
-        let parm = item ? item.type : item.name
-        console.log('parm',parm)
-
+    [genderInput, hobbyInput, countrySelect, stateSelect, citySelect].forEach(item => {
+        isValid = fullNameTest(fullNameInput)
+        let parm = item.type == 'text' ? item.id : item.type 
+        // console.log('parm',parm)
+        // console.log(item.name)
         switch(parm){
-            case 'text':
-                if(item.id === 'name'){
-                    isValid = fullNameTest(fullNameInput)
-                    console.log(isValid)
-                }else if(item.id === 'email'){
-                    isValid = emailTest(emailInput)
-                    console.log(isValid)
-                }
+            // case 'name':
+            //     isValid = fullNameTest(fullNameInput)
+            //     console.log('name here',isValid)    
+            //     break;        
+            case 'email':
+                isValid = emailTest(emailInput)
+                console.log('email',isValid)
                 break;
-
             case 'radio':
                 let genderChecked = false;
                 document.querySelectorAll('input[type="radio"]').forEach(radio => {
@@ -451,11 +456,12 @@ function validateForm() {
                         genderChecked = true
                     }
                 })
-                console.log(genderInput)
+                // console.log(genderInput)
                 if (!genderChecked) {
                     showError(document.querySelector("#genderError"), "Please select a gender");
                     isValid = false;
                 }
+                console.log('radio',isValid)
                 break;
 
             case 'checkbox':
@@ -472,6 +478,7 @@ function validateForm() {
                     );
                     isValid = false;
                 }
+                console.log('checkbox here',isValid) 
                 break;
 
             case 'select-one':
@@ -490,11 +497,11 @@ function validateForm() {
                     showError(document.querySelector("#cityError"), "Please select a city");
                     isValid = false;
                 }
-                console.log(isValid)
+                console.log('select',isValid)
                 break;
         }
     })
-
+    console.log('final valid',isValid)
     return isValid;
 }
 
@@ -581,7 +588,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document
         .querySelector("#userForm")
         .addEventListener("submit", function (event) {
-            console.log(collectDataOfForm());
+            // console.log(collectDataOfForm());
+            // console.log('sumit',validateForm())
             if (validateForm() && emailExist(document.querySelector("#email").value.toLowerCase())) {
                 let userData = new CreateUserDataObj(...collectDataOfForm());
                 // emailDataBase.push(userData.email);
